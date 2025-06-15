@@ -1,5 +1,5 @@
 import axios from "axios";
-import type Note from "../types/note";
+import type { Note } from "../types/note";
 
 interface FetchNotesProps {
     page: number;
@@ -39,8 +39,8 @@ export const fetchNotes = async ({ page, query }: FetchNotesProps): Promise<Fetc
 };
   
 
-export const createNote = async ({ title, content, tag }: CreateNoteProps): Promise<void> => {
-  await axios.post(
+export const createNote = async ({ title, content, tag }: CreateNoteProps): Promise<Note> => {
+  const res = await axios.post<Note>(
     "https://notehub-public.goit.study/api/notes",
     {
       title,
@@ -54,9 +54,11 @@ export const createNote = async ({ title, content, tag }: CreateNoteProps): Prom
       },
     }
   );
+  return res.data;
 };
 
-export const deleteNote = async (id: string): Promise<Note> => {
+
+export const deleteNote = async (id: number): Promise<Note> => {
   const res = await axios.delete<Note>(`https://notehub-public.goit.study/api/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${API_KEY}`,

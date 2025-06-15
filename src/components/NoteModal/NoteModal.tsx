@@ -41,7 +41,7 @@ export default function NoteModal({ onClose }: NoteModalProps) {
             aria-modal="true"
             onClick={handleBackdropClick}>
             <div className={css.modal}>
-                <NoteForm onButtonClose={()=> onClose()} />
+                <NoteForm onClose={()=> onClose()} />
             </div>
         </div>,
         document.body

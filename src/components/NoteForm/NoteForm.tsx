@@ -9,16 +9,16 @@ import { toast } from "react-toastify";
 
 
 interface NoteFormProps {
-    onButtonClose: () => void;
+    onClose: () => void;
 }
 
-interface initialValues {
+interface InitialValues {
   title: string;
-  content?: string;
+  content: string;
   tag: string;
 }
 
-export default function NoteForm({ onButtonClose }: NoteFormProps) {
+export default function NoteForm({ onClose: onButtonClose }: NoteFormProps) {
     const queryClient = useQueryClient();
     const fieldId = useId();
     const NoteFormSchema = Yup.object().shape({
@@ -30,9 +30,9 @@ export default function NoteForm({ onButtonClose }: NoteFormProps) {
             .max(500, "Content is too long"),
         tag: Yup.string()
             .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
-            .required("Title is required"),
+            .required("Tag is required"),
     });
-    const defaultValues:initialValues = {
+    const defaultValues:InitialValues = {
       title: "",
       content: "",
       tag: "Todo"
@@ -73,7 +73,7 @@ return (
      
          <div className={css.formGroup}>
              <label htmlFor={`${fieldId}-content`}>Content</label>
-             <Field as="textarea" name="content" id={`${fieldId}-content`} rows="8" className={css.textarea}/>
+             <Field as="textarea" name="content" id={`${fieldId}-content`} rows={8} className={css.textarea}/>
              <ErrorMessage name="content" component="span" className={css.error} />
          </div>
        
